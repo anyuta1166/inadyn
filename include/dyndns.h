@@ -170,6 +170,16 @@ typedef enum
 	"Host: %s\r\n"							\
 	"User-Agent: "DYNDNS_AGENT_NAME " " DYNDNS_EMAIL_ADDR"\r\n\r\n"
 
+#define CHANGEIP_UPDATE_IP_HTTP_REQUEST					\
+	"GET %s?"							\
+	"system=dyndns&"						\
+	"hostname=%s&"							\
+	"myip=%s "							\
+	"HTTP/1.0\r\n"							\
+	"Host: %s\r\n"							\
+	"Authorization: Basic %s\r\n"					\
+	"User-Agent: " DYNDNS_AGENT_NAME " " DYNDNS_EMAIL_ADDR "\r\n\r\n"
+
 
 /* Some default configurations */
 #define DYNDNS_DEFAULT_SLEEP			(120) /* sec */
