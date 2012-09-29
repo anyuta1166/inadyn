@@ -367,7 +367,7 @@ static int get_req_for_he_ipv6tb_server(DYN_DNS_CLIENT *p_self, int infcnt, int 
 		return 0;
 	}
 
-	md5_buffer(p_self->info[infcnt].credentials.my_password,
+	md5(p_self->info[infcnt].credentials.my_password,
 		   strlen(p_self->info[infcnt].credentials.my_password), digestbuf);
 	for (i = 0; i < MD5_DIGEST_BYTES; i++)
 		sprintf(&digeststr[i*2], "%02x", digestbuf[i]);
