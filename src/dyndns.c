@@ -298,7 +298,7 @@ static int get_req_for_freedns_server(DYN_DNS_CLIENT *p_self, int infcnt, int al
 		snprintf(buffer, sizeof(buffer), "/api/?action=getdyndns&sha=%s", digeststr);
 	
 		http_tr.req_len = sprintf(p_self->p_req_buffer, GENERIC_HTTP_REQUEST,
-			tmp, p_self->info[infcnt].dyndns_server_name.name);
+			buffer, p_self->info[infcnt].dyndns_server_name.name);
 		http_tr.p_req = (char*) p_self->p_req_buffer;
 		http_tr.p_rsp = (char*) p_self->p_work_buffer;
 		http_tr.max_rsp_len = p_self->work_buffer_size - 1; /* Save place for a \0 at the end */
