@@ -70,6 +70,17 @@ typedef enum
 	"Host: %s\r\n"							\
 	"User-Agent: " DYNDNS_AGENT_NAME " " DYNDNS_EMAIL_ADDR "\r\n\r\n"
 
+#define GENERIC_HTTP_REQUEST                                      \
+	"GET %s HTTP/1.0\r\n"						\
+	"Host: %s\r\n"							\
+	"User-Agent: " DYNDNS_AGENT_NAME " " DYNDNS_EMAIL_ADDR "\r\n\r\n"
+
+#define GENERIC_AUTH_HTTP_REQUEST					\
+	"GET %s HTTP/1.0\r\n"						\
+	"Host: %s\r\n"							\
+	"Authorization: Basic %s\r\n"					\
+	"User-Agent: " DYNDNS_AGENT_NAME " " DYNDNS_EMAIL_ADDR "\r\n\r\n"
+
 /* dyndns.org specific update address format
  * 3322.org has the same parameters ... */
 #define DYNDNS_UPDATE_IP_HTTP_REQUEST					\
@@ -85,7 +96,7 @@ typedef enum
 #define FREEDNS_UPDATE_IP_REQUEST					\
 	"GET %s?"							\
 	"%s&"								\
-	"address=%s "								\
+	"address=%s "							\
 	"HTTP/1.0\r\n"							\
 	"Host: %s\r\n"							\
 	"User-Agent: "DYNDNS_AGENT_NAME " " DYNDNS_EMAIL_ADDR"\r\n\r\n"
@@ -201,7 +212,6 @@ typedef enum
 #define DYNDNS_MY_PASSWORD_LENGTH		50  /* chars */
 #define DYNDNS_SERVER_NAME_LENGTH		256 /* chars */
 #define DYNDNS_SERVER_URL_LENGTH		256 /* chars */
-#define DYNDNS_HASH_STRING_MAX_LENGTH		256 /* chars */
 #define IP_V4_MAX_LENGTH			16  /* chars: nnn.nnn.nnn.nnn\0 */
 
 
@@ -237,12 +247,6 @@ typedef enum
 	CMD_RESTART = 2,
 } DYN_DNS_CMD;
 
-
-typedef struct
-{
-	char str[DYNDNS_HASH_STRING_MAX_LENGTH];
-} DYNDNS_HASH_TYPE;
-
 typedef struct
 {
 	char my_username[DYNDNS_MY_USERNAME_LENGTH];
@@ -263,7 +267,6 @@ typedef struct
 {
 	DYNDNS_SERVER_NAME names;
 	int update_required;
-	DYNDNS_HASH_TYPE hashes;
 } DYNDNS_ALIAS_INFO;
 
 typedef struct
