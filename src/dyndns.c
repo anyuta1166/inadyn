@@ -1102,6 +1102,8 @@ static RC_TYPE get_encoded_user_passwd(DYN_DNS_CLIENT *p_self)
 	char *p_tmp_buff = NULL;
 	int size, actual_len;
 	int i = 0;
+	char *p_b64_buff = NULL;
+	size_t dlen = 0;
 
 	do
 	{
@@ -1128,6 +1130,16 @@ static RC_TYPE get_encoded_user_passwd(DYN_DNS_CLIENT *p_self)
 		}
 
 		/*encode*/
+
+		base64_encode(NULL, &dlen, p_tmp_buff, strlen(p_tmp_buff));
+		p_b64_buff = (char *) malloc(dlen);
+		if (p_b64_buff == NULL)
+		{
+			rc = RC_OUT_OF_MEMORY;
+			break;
+		}
+		base64_encode(p_b64_buff, &dlen, p_tmp_buff, strlen(p_tmp_buff));
+		
 		info->credentials.p_enc_usr_passwd_buffer = b64encode(p_tmp_buff);
 		info->credentials.encoded =
 			(info->credentials.p_enc_usr_passwd_buffer != NULL);
