@@ -294,6 +294,7 @@ typedef struct
 typedef struct DYN_DNS_CLIENT
 {
 	char *cfgfile;
+	char *cachefile;
 	char *pidfile;
 	char *external_command;
 

@@ -76,6 +76,10 @@ static CMD_DESCRIPTION_TYPE cmd_options_table[] =
 	{"--bind",		1,	{set_bind_interface, NULL}, "<IFNAME>\n"
 	 "\t\t\tSet interface to bind to, only on UNIX systems."},
 
+	{"-c",			1,	{set_cachefile, NULL}, ""},
+	{"--cachefile",		1,	{set_cachefile, NULL}, "<FILE>\n"
+	 "\t\t\tSet cachefile, default " DYNDNS_DEFAULT_CACHE_FILE},
+
 	{"-d",			1,	{set_change_persona_handler, NULL}, ""},
 	{"--drop-privs", 	1,	{set_change_persona_handler, NULL}, "<USER[:GROUP]>\n"
 	 "\t\t\tAfter init switch to a new user/group.\n"
@@ -166,7 +170,7 @@ static CMD_DESCRIPTION_TYPE cmd_options_table[] =
 
 	{"-P",			1,	{set_pidfile, NULL}, ""},
 	{"--pidfile",		1,	{set_pidfile, NULL}, "<FILE>\n"
-	 "\t\t\tSet pidfile, default /var/run/inadyn/inadyn.pid."},
+	 "\t\t\tSet pidfile, default " DYNDNS_DEFAULT_PIDFILE},
 
 	{"-s",			0,	{set_syslog_handler, NULL}, ""},
 	{"--syslog",		0,	{set_syslog_handler, NULL},
@@ -769,6 +773,20 @@ static RC_TYPE set_pidfile(CMD_DATA *p_cmd, int current_nr, void *p_context)
 	}
 
 	p_self->pidfile = strdup(p_cmd->argv[current_nr]);
+
+	return RC_OK;
+}
+
+static RC_TYPE set_cachefile(CMD_DATA *p_cmd, int current_nr, void *p_context)
+{
+	DYN_DNS_CLIENT *p_self = (DYN_DNS_CLIENT *)p_context;
+
+	if (p_self == NULL)
+	{
+		return RC_INVALID_POINTER;
+	}
+
+	p_self->cachefile = strdup(p_cmd->argv[current_nr]);
 
 	return RC_OK;
 }
