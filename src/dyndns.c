@@ -327,10 +327,9 @@ static int get_req_for_freedns_server(DYN_DNS_CLIENT *p_self, int infcnt, int al
 				break;
 			}
 		}
-		
-		if (buf)
-			free(buf);
-		
+
+		free(buf);
+
 		if (!hash)
 			rc = RC_DYNDNS_RSP_NOTOK;
 	}
@@ -1145,19 +1144,13 @@ static RC_TYPE get_encoded_user_passwd(DYN_DNS_CLIENT *p_self)
 			(info->credentials.p_enc_usr_passwd_buffer != NULL);
 		info->credentials.size = strlen(info->credentials.p_enc_usr_passwd_buffer);
 
-		if (p_tmp_buff != NULL)
-		{
-			free(p_tmp_buff);
-			p_tmp_buff = NULL;
-		}
-	}
-	while (++i < p_self->info_count);
-
-	if (p_tmp_buff != NULL)
-	{
 		free(p_tmp_buff);
 		p_tmp_buff = NULL;
 	}
+	while (++i < p_self->info_count);
+
+	free(p_tmp_buff);
+	p_tmp_buff = NULL;
 
 	return rc;
 }
@@ -1252,18 +1245,13 @@ RC_TYPE dyn_dns_construct(DYN_DNS_CLIENT **pp_self)
 
 	if (rc != RC_OK)
 	{
-		if (*pp_self)
-		{
-			free(*pp_self);
-		}
-		if (p_self->p_work_buffer != NULL)
-		{
-			free(p_self->p_work_buffer);
-		}
-		if (p_self->p_req_buffer != NULL)
-		{
-			free (p_self->p_work_buffer);
-		}
+
+		free(*pp_self);
+
+		free(p_self->p_work_buffer);
+
+		free (p_self->p_work_buffer);
+
 		if (http_to_dyndns_constructed)
 		{
 			http_client_destruct(p_self->http_to_dyndns, DYNDNS_MAX_SERVER_NUMBER);
@@ -1308,66 +1296,40 @@ RC_TYPE dyn_dns_destruct(DYN_DNS_CLIENT *p_self)
 		/* XXX */
 	}
 
-	if (p_self->p_work_buffer != NULL)
-	{
-		free(p_self->p_work_buffer);
-		p_self->p_work_buffer = NULL;
-	}
+	free(p_self->p_work_buffer);
+	p_self->p_work_buffer = NULL;
 
-	if (p_self->p_req_buffer != NULL)
-	{
-		free(p_self->p_req_buffer);
-		p_self->p_req_buffer = NULL;
-	}
+	free(p_self->p_req_buffer);
+	p_self->p_req_buffer = NULL;
 
 	i = 0;
 	while (i < DYNDNS_MAX_SERVER_NUMBER)
 	{
 		DYNDNS_INFO_TYPE *info = &p_self->info[i];
 
-		if (info->credentials.p_enc_usr_passwd_buffer != NULL)
-		{
-			free(info->credentials.p_enc_usr_passwd_buffer);
-			info->credentials.p_enc_usr_passwd_buffer = NULL;
-		}
+		free(info->credentials.p_enc_usr_passwd_buffer);
+		info->credentials.p_enc_usr_passwd_buffer = NULL;
+
 		i++;
 	}
 
-	if (p_self->cfgfile != NULL)
-	{
-		free(p_self->cfgfile);
-		p_self->cfgfile = NULL;
-	}
+	free(p_self->cfgfile);
+	p_self->cfgfile = NULL;
 
-	if (p_self->pidfile != NULL)
-	{
-		free(p_self->pidfile);
-		p_self->pidfile = NULL;
-	}
+	free(p_self->pidfile);
+	p_self->pidfile = NULL;
 
-	if (p_self->cachefile != NULL)
-	{
-		free(p_self->cachefile);
-		p_self->cachefile = NULL;
-	}
+	free(p_self->cachefile);
+	p_self->cachefile = NULL;
 
-	if (p_self->external_command != NULL)
-	{
-		free(p_self->external_command);
-		p_self->external_command = NULL;
-	}
+	free(p_self->external_command);
+	p_self->external_command = NULL;
 
-	if (p_self->bind_interface != NULL)
-	{
-		free(p_self->bind_interface);
-		p_self->bind_interface = NULL;
-	}
+	free(p_self->bind_interface);
+	p_self->bind_interface = NULL;
 
-	if (p_self->check_interface != NULL)
-	{
-		free(p_self->check_interface);
-		p_self->check_interface = NULL;
-	}
+	free(p_self->check_interface);
+	p_self->check_interface = NULL;
 
 	/* Save old value, if restarted by SIGHUP */
 	cached_time_since_last_update = p_self->time_since_last_update;
