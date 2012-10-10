@@ -1333,6 +1333,42 @@ RC_TYPE dyn_dns_destruct(DYN_DNS_CLIENT *p_self)
 		i++;
 	}
 
+	if (p_self->cfgfile != NULL)
+	{
+		free(p_self->cfgfile);
+		p_self->cfgfile = NULL;
+	}
+
+	if (p_self->pidfile != NULL)
+	{
+		free(p_self->pidfile);
+		p_self->pidfile = NULL;
+	}
+
+	if (p_self->cachefile != NULL)
+	{
+		free(p_self->cachefile);
+		p_self->cachefile = NULL;
+	}
+
+	if (p_self->external_command != NULL)
+	{
+		free(p_self->external_command);
+		p_self->external_command = NULL;
+	}
+
+	if (p_self->bind_interface != NULL)
+	{
+		free(p_self->bind_interface);
+		p_self->bind_interface = NULL;
+	}
+
+	if (p_self->check_interface != NULL)
+	{
+		free(p_self->check_interface);
+		p_self->check_interface = NULL;
+	}
+
 	/* Save old value, if restarted by SIGHUP */
 	cached_time_since_last_update = p_self->time_since_last_update;
 	cached_num_iterations = p_self->num_iterations;
