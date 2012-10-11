@@ -60,6 +60,7 @@ static RC_TYPE set_change_persona_handler(CMD_DATA *p_cmd, int current_nr, void 
 static RC_TYPE set_bind_interface(CMD_DATA *p_cmd, int current_nr, void *p_context);
 static RC_TYPE set_check_interface(CMD_DATA *p_cmd, int current_nr, void *p_context);
 static RC_TYPE set_pidfile(CMD_DATA *p_cmd, int current_nr, void *p_context);
+static RC_TYPE set_cachefile(CMD_DATA *p_cmd, int current_nr, void *p_context);
 static RC_TYPE print_version_handler(CMD_DATA *p_cmd, int current_nr, void *p_context);
 static RC_TYPE get_exec_handler(CMD_DATA *p_cmd, int current_nr, void *p_context);
 
