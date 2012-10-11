@@ -1139,7 +1139,7 @@ static RC_TYPE get_encoded_user_passwd(DYN_DNS_CLIENT *p_self)
 		}
 		base64_encode(p_b64_buff, &dlen, p_tmp_buff, strlen(p_tmp_buff));
 		
-		info->credentials.p_enc_usr_passwd_buffer = b64encode(p_tmp_buff);
+		info->credentials.p_enc_usr_passwd_buffer = p_b64_buff;
 		info->credentials.encoded =
 			(info->credentials.p_enc_usr_passwd_buffer != NULL);
 		info->credentials.size = strlen(info->credentials.p_enc_usr_passwd_buffer);
